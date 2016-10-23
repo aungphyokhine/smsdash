@@ -1,0 +1,48 @@
+﻿<md-dialog aria-label="SMS Input" md-padding>
+    <form name="inputForm">
+        <md-toolbar style="background-color:#EC407A;">
+            <div class="md-toolbar-tools">
+                <h2>Add New SMS</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="max-width:800px;max-height:810px; display:block;padding:15px;overflow:hidden;">
+            <div layout="row">
+                <md-input-container class="md-block" flex-gt-sm >
+                    <label>Phone Number</label>
+                   
+                        <input name="receiver" ng-model="sms.receiver" required md-maxlength="15" minlength="4">
+                   
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Enter date</label>
+                    <md-datepicker ng-model="sms.date" required></md-datepicker>
+                    
+                </md-input-container>
+            </div>
+
+            <md-input-container class="md-block">
+                <label>Message</label>
+                <textarea ng-model="sms.body" required md-maxlength="160" rows="5" md-select-on-focus></textarea>
+               
+            </md-input-container>
+            <p>{{insertstatus}}</p>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="end center">
+            <span flex></span>
+            <md-button ng-click="cancelSMS()">
+                Close
+            </md-button>
+
+            <md-button ng-disabled="inputForm.$invalid" ng-click="addSMS()" md-autofocus>
+                Add Message
+            </md-button>
+
+        </md-dialog-actions>
+        </form>
+</md-dialog>

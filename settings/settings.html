@@ -1,0 +1,62 @@
+﻿<div layout="column" layout-align="start start" layout-padding layout-wrap style="padding-bottom: 32px;" ng-cloak>
+
+
+    <md-card style="max-width:100%;">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">API Settings</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="column">
+            <div style="margin-bottom:20px;">
+                <p>
+                    {{ 'API_DESC' | translate }}
+                </p>
+                <p>
+                    <span class="kwd">Url: </span><span class="kwd">https://smsio-gistracker.rhcloud.com/parse/functions/ApiCall</span>  <br />
+                    
+                    <span class="kwd">Method: </span><span class="kwd">POST</span>  <br /><br />
+                    <span class="kwd">Headers</span> 
+                    <br /><span class="lit">X-Parse-Application-Id: th!s!skey
+                    </span>  <br />
+                    <span class="lit">
+                        Content-Type: application/json
+                    </span><br /><br />
+                    <span class="kwd">Request Body</span> 
+                    <br />
+                    <span class="lit">
+                         { "uid": "{{user.get('serial')}}",<br />
+                        "token": "<span style="overflow-wrap:break-word;">{{user.get('apitoken')}}</span>",<br />
+                        "receiver":<span class="atn">"095059998"</span>,<br />
+                        "message": <span class="atn">"Hello User."</span>,<br />
+    "date":<span class="atn">
+    "1/1/2016"
+</span>} <br />
+</span>
+                      
+</p>
+
+            </div>
+            <!--<div layout="row" layout-align="space-between start">
+                <div style="overflow-x:auto;">
+                    
+                    <p>
+                        <span class="lit">You need to change appropriate receiver number, message text and date.</span>
+</p>
+                </div>
+
+
+            </div>-->
+ 
+        </md-card-content>
+    </md-card>
+
+
+
+</div>
+
+<a ng-href="#/home">
+    <md-button style="position:fixed;bottom:20px;right:20px;background-color:#EC407A;color:#fff;" class="md-fab" aria-label="Eat cake">
+        <ng-md-icon icon="arrow_back" size="24"></ng-md-icon>
+    </md-button>
+</a>

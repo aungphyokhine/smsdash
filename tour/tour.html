@@ -1,0 +1,71 @@
+﻿<div style="position:fixed;top:0;width:100%;height:5px;background-color:#fff;">
+    <div layout="row" class="md-warn" layout-sm="column" layout-align="space-around" ng-if="statusload">
+        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+
+    </div>
+</div>
+
+
+<div layout="column" layout-align="start center" >
+    <md-card >
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Import from CSV File </span>
+
+            </md-card-title-text>
+        
+        </md-card-title>
+        <md-subheader class="md-no-sticky" layout="column" layout-align="center stretch">
+            <p>The GPRS core network is the central part of the general packet radio service (GPRS) which allows 2G, 3G and WCDMA mobile networks to transmit IP packets to external networks such as the Internet. The GPRS system is an integrated part of the GSM network switching subsystem</p>
+            <div layout="row" layout-align="start center">
+                <ng-csv-import content="csv.content"
+                               header="true"
+                               separator="','"
+                               result="csv.result"
+                               process="csvprocess"
+                               callback="csvimport"
+                               acceptSizeExceedCallback="csvoverlimit"></ng-csv-import>
+                <div flex></div>
+                <md-button aria-label="label" class="md-icon-button">
+                    <ng-md-icon icon="content_cut" size="24"></ng-md-icon>
+                </md-button>
+                <md-button aria-label="label" class="md-icon-button">
+                    <ng-md-icon icon="mode_edit" size="24"></ng-md-icon>
+                </md-button>
+                <md-button aria-label="label" class="md-icon-button">
+                    <ng-md-icon icon="content_paste" size="24"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-subheader>
+        <md-card-content layout="column">
+    
+            <md-table-container ng-if="csvmessages">
+                <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                    <thead md-head md-order="query.order" md-on-reorder="ordercsv">
+                        <tr md-row>
+                            <th md-column md-order-by="name"><span>Name (100g serving)</span></th>
+                            <th md-column md-numeric md-order-by="phone"><span>Mobile No.</span></th>
+                            <th md-column md-numeric>Message Body</th>
+                            <th md-column md-numeric>Date</th>
+
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="csvmessage" md-select-id="id" md-auto-select ng-repeat="csvmessage in csvmessages">
+
+                            <td md-cell>{{csvmessage.name}}</td>
+                            <td md-cell>{{csvmessage.phone}}</td>
+                            <td md-cell>{{csvmessage.body}}</td>
+                            <td md-cell>{{csvmessage.date}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination ng-if="csvmessages" md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+        </md-card-content>
+    </md-card>
+
+
+</div>

@@ -1,0 +1,287 @@
+﻿<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">
+    <link href="node_modules/angular-material-icons/angular-material-icons.css" rel="stylesheet" />
+    <link href="bower_components/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
+    <link href="bower_components/slick-carousel/slick/slick.css" rel="stylesheet" />
+    <link href="StyleSheet.css" rel="stylesheet" />
+    <link href="node_modules/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" />
+   
+</head>
+<body ng-app="smsDash" ng-cloak ng-controller="AppCtrl">
+
+
+
+
+
+
+
+
+
+    <div layout="row" layout-sm="column" layout-align="center center" ng-if="load" class="md-warm" style="height:100%;">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+   
+    <md-toolbar ng-if="user && !load" style="background-color:#fff;position:fixed;top:2px;z-index:10" class="md-primary md-hue-1">
+        <div class="md-toolbar-tools" ng-if="loggedin">
+            <div  hide-sm hide-xs style="width:250px;">
+                
+               
+               
+            </div>
+            <img hide-sm hide-xs ng-src="{{profile.photourl}}" style="height:45px;width:45px;border-radius:50%;border:none;margin-right:5px;" />
+            <h5  >
+                <span>{{profile.name}} </span>
+            </h5>
+            <md-menu>
+                <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                    <ng-md-icon icon="keyboard_arrow_down" size="24"></ng-md-icon>
+                </md-button>
+                <md-menu-content width="4">
+                   
+                    <md-menu-item>
+                        <md-button ng-click="goAddDevice()">
+                            <ng-md-icon icon="vibration" style="fill-opacity:.6;" size="24"></ng-md-icon>
+                           Add Devices
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="gomessages()">
+                            <ng-md-icon icon="check" style="fill-opacity:.6;" size="24"></ng-md-icon>
+                            Messages History
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button  ng-click="gosettings()">
+                            <ng-md-icon icon="device_hub" style="fill-opacity:.6;" size="24"></ng-md-icon>
+                            API Settings
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                        <md-button ng-click="logout()">
+                           
+                             Logout
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+            <span flex></span>
+            <!--<md-button aria-label="label" class="md-icon-button" ng-href="#/addmessage">
+                <ng-md-icon icon="question_answer" size="24"></ng-md-icon>
+            </md-button>
+            <h5>add messages</h5>-->
+            <div><md-menu>
+    <md-button  ng-click="$mdOpenMenu($event)">
+        {{selectedLang.desc}}
+    </md-button>
+    <md-menu-content width="4" >
+        <md-menu-item >
+            <md-button ng-click="setLang('en')">
+               
+               English
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setLang('mmzg')">
+              
+                ေဇာ္ဂ်ီျမန္မာ
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setLang('mm')">
+               
+                ယူနီကုဒ်မြန်မာ
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
+                
+            </div>
+            <md-button  aria-label="photo" class="md-icon-button" >
+                <ng-md-icon icon="help_outline" size="24"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+
+
+    <div ng-cloak layout="column" layout-align="start stretch" layout-fill style="margin-top:60px;">
+
+        <div layout-align="center center" layout="row"  ng-cloak id="popupContainer" ng-if="!user && !load">
+           
+             <div class="md-padding" flex-gt-sm="30" flex="50" style="margin-top:100px;" layout-align="center center"  layout="column">
+                <h1 style="text-align:center;margin-top:-50px;">
+                    <svg (click)="manualinputsetup()" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                         width="130" height="150" viewBox="0 0 210.000000 246.000000"
+                         preserveAspectRatio="xMidYMid meet">
+                        <metadata>
+                            Created by potrace 1.10, written by Peter Selinger 2001-2011
+                        </metadata>
+                        <g transform="translate(0.000000,246.000000) scale(0.050000,-0.050000)"
+                           fill="#387ef5" stroke="none">
+                            <path d="M1400 4881 c0 -24 54 -233 121 -464 66 -232 118 -428 115 -436 -3 -7
+-103 -103 -221 -211 -118 -109 -215 -212 -216 -229 0 -17 100 -126 223 -242
+l223 -211 -123 -429 c-129 -455 -139 -508 -94 -525 16 -6 499 245 1075 559
+576 314 1133 616 1237 672 228 121 240 130 240 175 0 44 -2413 1365 -2515
+1377 -56 6 -65 1 -65 -36z m231 -168 c44 -31 1268 -699 1649 -900 138 -73 241
+-133 231 -133 -16 0 -1541 296 -1702 330 -34 7 -57 64 -137 344 -53 185 -101
+347 -106 361 -12 33 15 32 65 -2z m1569 -1097 c28 -3 -247 -10 -610 -16 -622
+-9 -660 -12 -667 -47 -14 -75 18 -79 671 -77 375 2 620 -4 596 -15 -22 -9
+-358 -77 -746 -149 l-706 -133 -159 144 c-193 175 -192 164 -9 153 163 -11
+219 10 207 75 -6 34 -30 40 -182 49 l-174 10 160 141 159 141 705 -135 c388
+-75 728 -138 755 -141z m309 -233 c-10 -9 -131 -76 -269 -147 -293 -152 -1568
+-848 -1637 -893 -40 -26 -46 -26 -40 -1 4 16 51 182 105 369 l97 341 853 171
+c939 188 918 184 891 160z" />
+                            <path d="M900 3534 c-84 -29 -103 -119 -27 -130 80 -11 191 50 183 101 -7 54
+-57 63 -156 29z" />
+                            <path d="M563 3367 c-88 -52 -114 -131 -51 -155 62 -24 218 98 197 154 -20 52
+-60 53 -146 1z" />
+                            <path d="M261 3079 c-100 -139 -16 -215 94 -85 71 83 77 106 41 142 -41 41
+-74 27 -135 -57z" />
+                            <path d="M105 2815 c-78 -99 -64 -262 20 -230 47 18 104 191 74 226 -29 36
+-67 37 -94 4z" />
+                            <path d="M13 2447 c-30 -30 -14 -228 20 -241 46 -17 87 46 87 134 0 93 -60
+153 -107 107z" />
+                            <path d="M33 2067 c-19 -20 -16 -117 7 -176 48 -127 153 -67 114 65 -32 112
+-78 153 -121 111z" />
+                            <path d="M2092 1800 c-50 -127 -23 -214 52 -167 45 27 100 188 75 218 -44 53
+-93 33 -127 -51z" />
+                            <path d="M173 1707 c-27 -28 -11 -95 38 -160 56 -73 91 -83 130 -36 54 66
+-108 256 -168 196z" />
+                            <path d="M1882 1469 c-68 -77 -71 -103 -16 -137 44 -28 178 97 170 158 -10 69
+-83 60 -154 -21z" />
+                            <path d="M411 1385 c-16 -41 118 -170 166 -161 73 15 75 77 4 138 -78 65 -150
+75 -170 23z" />
+                            <path d="M1574 1258 c-91 -48 -99 -124 -14 -133 76 -9 184 66 176 121 -8 59
+-67 63 -162 12z" />
+                            <path d="M764 1216 c-58 -58 37 -136 164 -136 108 0 88 103 -26 137 -96 29
+-108 29 -138 -1z" />
+                            <path d="M1143 1145 c-46 -86 59 -134 187 -85 39 15 51 32 46 65 -8 62 -202
+79 -233 20z" />
+                            <path d="M3214 587 c-8 -7 -14 -61 -14 -119 l0 -106 -55 29 c-197 103 -394
+-164 -237 -321 177 -176 350 -54 355 249 2 111 4 216 5 234 2 36 -32 57 -54
+34z m-67 -268 c103 -81 40 -259 -90 -259 -135 0 -189 162 -85 255 62 56 108
+57 175 4z" />
+                            <path d="M20 210 c0 -127 8 -210 20 -210 11 0 20 60 20 140 0 150 37 220 117
+220 73 0 103 -64 103 -217 0 -114 6 -143 30 -143 24 0 30 30 30 147 0 296 191
+300 204 4 9 -206 56 -204 56 3 0 228 -87 315 -237 237 -55 -28 -65 -28 -121 4
+-50 29 -70 31 -121 12 -34 -13 -61 -15 -61 -5 0 10 -9 18 -20 18 -12 0 -20
+-83 -20 -210z" />
+                            <path d="M767 381 c-217 -132 -37 -469 191 -355 50 25 61 25 70 2 27 -72 52
+-18 52 114 0 229 -146 341 -313 239z m204 -70 c123 -123 -19 -312 -173 -230
+-93 50 -88 209 8 255 70 34 112 27 165 -25z" />
+                            <path d="M1193 379 c-100 -79 -58 -150 122 -208 112 -37 128 -57 66 -90 -55
+-30 -132 -26 -161 9 -27 32 -80 41 -80 13 0 -103 249 -129 312 -33 46 71 9
+120 -126 165 -130 43 -152 74 -77 108 43 20 65 18 122 -10 124 -58 158 -22 44
+47 -84 51 -156 51 -222 -1z" />
+                            <path d="M1592 378 c-96 -75 -67 -139 87 -194 156 -55 161 -60 112 -96 -51
+-37 -140 -36 -171 2 -32 39 -80 39 -80 0 0 -96 252 -112 312 -20 45 69 14 109
+-123 159 -132 47 -155 80 -79 115 44 20 64 18 122 -14 100 -53 141 -10 46 49
+-87 52 -159 52 -226 -1z" />
+                            <path d="M2036 389 c-178 -96 -100 -389 102 -389 59 0 142 43 142 73 0 31 -52
+36 -70 7 -33 -54 -210 6 -210 71 0 23 35 29 170 29 155 0 170 3 170 39 0 151
+-168 244 -304 170z m191 -70 c81 -64 65 -79 -87 -79 -137 0 -155 7 -125 52 49
+72 140 83 212 27z" />
+                            <path d="M2409 393 c-22 -55 1 -380 26 -388 18 -6 25 27 25 124 0 310 259 322
+277 13 11 -196 54 -181 52 18 -2 207 -128 316 -274 237 -32 -17 -45 -17 -51 0
+-10 31 -43 29 -55 -4z" />
+                            <path d="M3450 397 c-187 -103 -122 -397 88 -397 59 0 142 43 142 73 0 31 -52
+36 -70 7 -33 -54 -210 6 -210 71 0 23 35 29 170 29 155 0 170 3 170 39 0 142
+-168 245 -290 178z m177 -78 c81 -64 65 -79 -87 -79 -137 0 -155 7 -125 52 49
+72 140 83 212 27z" />
+                            <path d="M3809 393 c-22 -55 1 -380 26 -388 18 -6 25 22 25 98 1 196 62 272
+199 244 47 -9 61 -5 61 18 0 60 -108 73 -201 24 -53 -27 -59 -27 -59 0 0 38
+-37 41 -51 4z" />
+                        </g>
+                    </svg>
+                </h1>
+                 <p style="text-align:center;">
+                     This system is intended for business sms messaging, can send sms from File or API easily.
+                    
+                 </p>
+                <!--<h3 flex ng-click="logout()" style="text-align:center;margin-bottom:50px;">Portable SMS</h3>-->
+                 <md-button class="md-raised" style="background-color:#387ef5;color:#fff;" ng-click="fblogin()">Login with Facebook</md-button>
+                <!--<md-button style="background-image:url(img/fb.png);height:46px;width:202px;" class="md-raised md-primary" ng-click="fblogin()" ></md-button>-->
+            </div>
+        </div>
+        <div ng-if="user && !load" hide-sm hide-xs style="position:fixed;top:2px;bottom:0px;background-color:#2E323E;bottom:0;width:250px;z-index:1000;" layout-fill>
+            <md-toolbar class="md-hue-2" style="background-color:#383C47;">
+                <div class="md-toolbar-tools" ng-if="loggedin">
+            
+                    <h5 >
+                        <!--<ng-md-icon ng-click="resetall()" icon="gesture" size="24"></ng-md-icon>-->
+                        <span ng-click="resetall()">SMS Portal</span>
+
+                    </h5>
+                </div>
+            </md-toolbar>
+           
+</div>
+        <div layout="row" ng-if="user && !load" flex="100" layout-align="start stretch">
+
+           
+
+                    <div hide-sm hide-xs style="background-color:transparent;width:250px;" layout-fill>
+                        ..
+                    </div>
+
+
+                    <div flex layout="column" layout-fill layout-align="start stretch">
+                     
+                        <div ng-view flex="100"></div>
+                    </div>
+
+            </div>
+    </div>
+
+
+    
+    <script src="fbsdk.js"></script>
+    <script src="parse.min.js"></script>
+    <script src="node_modules/qrcode-generator/js/qrcode.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
+    <!--<script src="jquery-3.1.1.min.js"></script>
+    <script src="jquery.sparkline.min.js"></script>-->
+
+    <script src="node_modules/randomcolor/randomColor.js"></script>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/SVG-Morpheus/0.1.8/svg-morpheus.js"></script>-->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>-->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>-->
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>-->
+    <script src="node_modules/angular-aria/angular-aria.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>-->
+    <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+    <script src="node_modules/angular-material-icons/angular-material-icons.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>-->
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+    <!-- Angular Material Library -->
+    <script src="node_modules/angular-material/angular-material.min.js"></script>
+    <script src="node_modules/angular-qrcode/angular-qrcode.js"></script>
+    <script src="bower_components/angular-csv-import/dist/angular-csv-import.js"></script>
+    <script src="node_modules/angular-chart.js/angular-chart.js"></script>
+    <script src="node_modules/angular-material-data-table/dist/md-data-table.min.js"></script>
+    <script src="node_modules/ng-csv/build/ng-csv.min.js"></script>
+    <script src="node_modules/angular-translate/dist/angular-translate.js"></script>
+    <script src="node_modules/angular-sessionstorage/angular-sessionstorage.js"></script>
+
+    <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
+  
+    <!-- Your application bootstrap  -->
+    <script src="app.js"></script>
+    <script src="dashboard/dashboard.js"></script>
+    <script src="message/message.js"></script>
+    <script src="register/register.js"></script>
+    <script src="settings/settings.js"></script>
+    <script src="tour/tour.js"></script>
+</body>
+</html>

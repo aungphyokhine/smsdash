@@ -1,0 +1,44 @@
+﻿<div layout="column" layout-align="start stretch" layout-padding layout-wrap style="padding-bottom: 32px;" ng-cloak>
+
+    <md-card ng-if="!statusload" >
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Add New Device</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="column">
+            <div style="margin-bottom:20px;">
+                {{ 'ADD_DEVICE_DESC' | translate }}
+               
+            </div>
+            <div layout="row" layout-align="space-between start">
+                <div>
+                    <qrcode data="{{user.get('serial')}}" size="120" version="2"></qrcode>
+                    <h2 hide>
+                        {{user.get('serial')}}
+                    </h2>
+                </div>
+
+                <div>
+                    <span>download apk</span>
+                    <a href="/resources/massender.png" target="_self" download="massender.apk">
+                        <md-button class="md-icon-button" aria-label="Favorite">
+                            <ng-md-icon class="list-action" icon="file_download" size="24"></ng-md-icon>
+                        </md-button>
+                    </a>
+                </div>
+            </div>
+          
+        </md-card-content>
+    </md-card>
+ 
+  
+
+   
+</div>
+
+<a ng-href="#/home">
+    <md-button style="position:fixed;bottom:20px;right:20px;background-color:#EC407A;color:#fff;" class="md-fab" aria-label="Eat cake">
+        <ng-md-icon icon="arrow_back" size="24"></ng-md-icon>
+    </md-button>
+</a>

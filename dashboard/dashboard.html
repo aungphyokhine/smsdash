@@ -1,0 +1,346 @@
+﻿
+<div style="position:fixed;top:0;width:100%;height:5px;background-color:#fff;">
+    <div layout="row" class="md-warn" layout-sm="column" layout-align="space-around" ng-if="statusload">
+        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+
+    </div>
+</div>
+
+
+<md-card md-padding ng-if="!deviceexist"   flex="100"  >
+   
+   
+             <md-card-title >
+    <md-card-title-text>
+
+        <span class="md-headline">About System</span>
+    </md-card-title-text>
+</md-card-title>
+
+    <md-card-content layout="column" ng-show="slide== 0" style="margin-bottom:80px;">
+        <div>
+            <p>
+                {{ 'ABOUT_DESC' | translate }}
+               
+               
+                <!--Credit : logo by https://www.utterweb.com/-->
+            </p>
+        </div>
+    </md-card-content>
+           
+    </md-card>
+
+    <div layout="row" flex="grow" ng-if="deviceexist && !statusload">
+        <md-card ng-if="!statusload" style="background-color:#27A69B;color:#fff;box-shadow:none;" flex flex-sm="100" flex-xs="100">
+            <md-card-title style="height:30px;">
+                <md-card-title-text>
+                    <span class="md-headline">Summary</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+
+                Total success messages are {{successstatus[0]}},
+                pending messages are {{sentstatus[1] - successstatus[0]}} and total messages  are {{sentstatus[1]}}.
+
+            </md-card-content>
+        </md-card>
+        <md-card ng-if="!statusload" hide-sm hide-xs style="background-color:#EC407A;color:#fff;box-shadow:none;" flex>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Finished {{successstatus[0]}}</span>
+                </md-card-title-text>
+
+            </md-card-title>
+            <md-card-content layout="row" layout-align="center center">
+                <round-progress max="sentstatus[1]"
+                                current="successstatus[0]"
+                                color="#fff"
+                                bgcolor="rgba(255,255,255,0.5)"
+                                radius="25"
+                                stroke="3"
+                                semi="false"
+                                rounded="true"
+                                clockwise="false"
+                                responsive="false"
+                                duration="800"
+                                animation="easeInOutQuart"
+                                animation-delay="0">
+
+                </round-progress>
+
+            </md-card-content>
+        </md-card>
+        <md-card ng-if="!statusload" hide-sm hide-xs style="background-color:#2196F3;color:#fff;box-shadow:none;" flex>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Pending {{sentstatus[1] - successstatus[0]}}</span>
+                </md-card-title-text>
+
+
+            </md-card-title>
+            <md-card-content layout="row" layout-align="center center">
+                <round-progress max="sentstatus[1]"
+                                current="successstatus[1]"
+                                color="#fff"
+                                bgcolor="rgba(255,255,255,0.5)"
+                                radius="25"
+                                stroke="3"
+                                semi="false"
+                                rounded="true"
+                                clockwise="false"
+                                responsive="false"
+                                duration="800"
+                                animation="easeInOutQuart"
+                                animation-delay="0">
+
+                </round-progress>
+
+            </md-card-content>
+        </md-card>
+        <md-card ng-if="!statusload" hide-sm hide-xs style="background-color:#27A69B;color:#fff;box-shadow:none;" flex>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Total {{sentstatus[1]}}</span>
+                </md-card-title-text>
+
+
+            </md-card-title>
+            <md-card-content layout="row" layout-align="center center">
+                <round-progress max="sentstatus[1]"
+                                current="sentstatus[0]"
+                                color="#fff"
+                                bgcolor="rgba(255,255,255,0.5)"
+                                radius="25"
+                                stroke="3"
+                                semi="false"
+                                rounded="true"
+                                clockwise="false"
+                                responsive="false"
+                                duration="800"
+                                animation="easeInOutQuart"
+                                animation-delay="0">
+
+                </round-progress>
+
+            </md-card-content>
+        </md-card>
+
+    </div>
+
+
+    <md-card ng-if="deviceexist && !statusload" hide>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">In-card mixed actionse</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row">
+            <div>
+                Total success messages are {{successstatus[0]}}, fail messages are {{successstatus[1]}},
+                pending messages are {{sentstatus[0]}} and total messages  are {{sentstatus[1]}}.
+            </div>
+            <div layout="row" style="margin-top:20px;" hide-sm hide-xs>
+                <div flex></div>
+                <div>
+                    <h5 style="text-align:right;">Success Rate</h5>
+                </div>
+                <div style="width:150px;">
+                    <canvas id="doughnut" class="chart chart-doughnut"
+                            chart-data="successstatus" chart-labels="labels"></canvas>
+                    <!--{{successstatus}}-->
+                </div>
+                <div>
+                    <h5 style="text-align:right;">Sent Rate</h5>
+
+                    /h
+
+                </div>
+                <div style="width:150px;">
+                    <canvas id="doughnut" class="chart chart-doughnut"
+                            chart-data="sentstatus" chart-labels="labels"></canvas>
+                    <!--{{sentstatus}}-->
+                </div>
+
+            </div>
+        </md-card-content>
+    </md-card>
+
+
+
+
+
+
+    <md-card ng-if="deviceexist && !statusload && newstatus && (newstatus.length > 0)" style="box-shadow:none;">
+        <!--<md-subheader class="md-primary">{{newstatus.length}} Registered Devices</md-subheader>-->
+
+        <md-list class="md-dense">
+
+
+            <md-list-item class="md-3-line" ng-click="null" ng-repeat="d in newstatus track by $index">
+                <!--<img ng-src=""
+                class="md-avatar" alt="" />-->
+
+
+
+                <div style="margin-right:15px;width:50px;height:50px;font-size:22px;border-radius:50%;background-color:#27A69B">
+                    <span style="font-weight:300;color:#fff;text-align:center;margin:8px;display:block;">
+
+                        {{$index+1}}
+                    </span>
+                </div>
+                <div class="md-list-item-text" layout="column">
+
+                    <div style="line-height:20px;font-size:20px;font-weight:300;margin:0;color:#777;display:block;"> {{d.id}}</div>
+                    <!--<h4>{{d.time}}</h4>-->
+
+                </div>
+                <md-chips class="custom-chips" ng-model="d.gpdata" readonly="true" md-removable="false" hide-sm hide-xs>
+                    <md-chip-template>
+
+                        <span>
+                            <strong>{{$chip.name}}</strong>
+                            <em>({{$chip.value}})</em>
+                        </span>
+                    </md-chip-template>
+                    <button md-chip-remove class="md-primary vegetablechip">
+                        <md-icon md-svg-icon="md-close"></md-icon>
+                    </button>
+                </md-chips>
+
+                <div layout="row">
+
+                    <md-button class="md-icon-button " aria-label="Favorite" ng-if="d.active == -1">
+                        <ng-md-icon class="list-action" icon="phonelink_erase" style="fill:#777" size="24"></ng-md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" aria-label="Favorite" ng-if="d.active == 1">
+                        <ng-md-icon class="list-action" icon="perm_device_information" style="fill:#777" size="24"></ng-md-icon>
+                    </md-button>
+
+                    <md-button class="md-icon-button" aria-label="Favorite" ng-if="d.active == 0">
+                        <ng-md-icon class="list-action" icon="phonelink_ring" style="fill:#777" size="24"></ng-md-icon>
+                    </md-button>
+                    <!--<md-button class="md-icon-button" aria-label="Favorite">
+                        <ng-md-icon icon="autorenew" style="fill:#777" size="24"></ng-md-icon>
+                    </md-button>-->
+                    <md-button class="md-icon-button" ng-click="showRemoveConfirm($event,d.id)"   aria-label="Favorite"><!--ng-click="removeDevice(d.id)"-->
+
+                        <ng-md-icon icon="block" style="fill:#777" size="24">
+                        </ng-md-icon>
+                    </md-button>
+                    <!--<md-button ng-click="clearsms()" class="md-icon-button" aria-label="Favorite">
+                        <ng-md-icon icon="sync_problem" style="fill:#777" size="24"></ng-md-icon>
+                    </md-button>-->
+                </div>
+            </md-list-item>
+
+        </md-list>
+    </md-card>
+
+
+
+
+    <div ng-if="deviceexist" layout="column" layout-align="start center" style="margin-bottom:50px;">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Add Messages </span>
+
+                </md-card-title-text>
+               
+            </md-card-title>
+            <md-card-content layout="column">
+                <p translate-cloak     [translate-cloak="{ADD_MESSAGE_DESC}"]>
+                    {{ 'ADD_MESSAGE_DESC' | translate }}
+                  
+                </p>
+                <p>
+                    
+                </p>
+                </md-card-content>
+                <md-subheader class="md-no-sticky" layout="column" layout-align="center stretch">
+
+                    <div>
+                        Import SMS from .csv file , <a style="color:#27A69B;cursor:pointer;" ng-csv="[{Receiver:'09000001',Message:'your message',Date:'1/1/2018'}]" csv-header="['Receiver','Message','Date']" filename="sample.csv" field-separator="," decimal-separator=".">
+                            Download sample file
+                            <!--<md-button  aria-label="label" class="md-icon-button">
+                        <ng-md-icon icon="content_paste" size="24"></ng-md-icon>
+                    </md-button>-->
+                        </a>
+                    </div>
+                    <div layout="row" layout-align="start center">
+                        <ng-csv-import content="csv.content"
+                                       header="true"
+                                       separator="','"
+                                       result="csv.result"
+                                       process="csvprocess"
+                                       callback="csvimport"
+                                       acceptSizeExceedCallback="csvoverlimit"></ng-csv-import>
+                        <div flex></div>
+                        <md-button ng-click="deleteRow()" aria-label="label" class="md-icon-button">
+                            <ng-md-icon icon="content_cut" size="24"></ng-md-icon>
+                        </md-button>
+                        <md-button ng-click="smsInput()" aria-label="label" class="md-icon-button">
+                            <ng-md-icon icon="mode_edit" size="24"></ng-md-icon>
+                        </md-button>
+
+                    </div>
+                </md-subheader>
+                <md-card-content layout="column">
+
+                    <md-table-container ng-if="csvmessages.length > 0">
+                        <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                            <thead md-head md-order="query.order" md-on-reorder="ordercsv">
+                                <tr md-row>
+                                    <th md-column md-order-by="Receiver"><span>Receiver (Phone No.)</span></th>
+                                    <!--<th md-column md-numeric md-order-by="phone"><span>Mobile No.</span></th>-->
+                                    <th md-column>Message Body</th>
+                                    <th md-column>Date</th>
+
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row md-select="csvmessage" md-select-id="id" md-auto-select ng-repeat="csvmessage in pagemessages">
+
+                                    <!--<td md-cell>{{csvmessage.name}}</td>-->
+                                    <td md-cell>{{csvmessage.Receiver}}</td>
+                                  
+                                    <td md-cell>{{csvmessage.Message}}</td>
+                                    <td md-cell>{{csvmessage.Date}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </md-table-container>
+
+                    <md-table-pagination ng-if="csvmessages" md-limit="page.limit" md-limit-options="[5, 10, 15]" md-page="currentpageidx" md-total="{{csvmessages.length}}" md-on-paginate="getmsg" md-page-select></md-table-pagination>
+                    <div layout="row" ng-if="csvmessages">
+                        <md-button class="md-raised" ng-csv="getCsv()" csv-header="['Receiver','Message','Date']" filename="data.csv" field-separator="," decimal-separator=".">Download Data</md-button>
+                        <md-button class="md-raised" ng-click="sendSms()">Send to Devices</md-button>
+                    </div>
+                </md-card-content>
+</md-card>
+        <!--<md-button ng-if="csvmessages"  class="md-raised md-primary">Send to Devices</md-button>-->
+    </div>
+    <!--<a ng-if="csvmessages" ng-href="#/home">
+        <md-button  style="position:fixed;bottom:20px;left:20px;background-color:#27A69B;color:#fff;z-index:2000;" class="md-fab" aria-label="Eat cake">
+            <ng-md-icon icon="arrow_forward" size="24"></ng-md-icon>
+        </md-button>
+    </a>-->
+
+
+
+
+
+
+
+    <a ng-href="#/register" style="position:fixed;bottom:20px;right:20px;">
+        <p class="speech" ng-if="!deviceexist" style="position:absolute;font-size:13px;display:block;margin-left:-150px;margin-top:-110px;color:#333;">
+            <span>You don't have any attached device currently, please click to add one.</span>
+        </p>
+        <md-button style="background-color:#EC407A;color:#fff;" class="md-fab" aria-label="Eat cake">
+            
+            <ng-md-icon icon="add" size="24"></ng-md-icon>
+        </md-button>
+    </a>

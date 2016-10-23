@@ -1,0 +1,114 @@
+﻿
+
+<div layout="column" layout-align="start stretch" style="margin-bottom:50px;" >
+    <md-card >
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Messages History</span>
+
+            </md-card-title-text>
+        
+        </md-card-title>
+        <md-card-content layout="column">
+            <p>
+                {{ 'MESSAGE_HISTORY_DESC' | translate }}
+            </p>
+    
+            </md-card-content>
+                <md-subheader class="md-no-sticky" layout="column" layout-align="center stretch">
+               
+                <div layout="row" layout-align="start center">
+                    <md-menu-bar>
+                       
+                        <md-menu>
+                           
+                            <button ng-click="$mdOpenMenu()">
+                            Message Filter <ng-md-icon icon="expand_more" size="24"></ng-md-icon>
+                            </button>
+                            <md-menu-content>
+                                <!--<md-menu-item type="checkbox" ng-model="ctrl.settings.printLayout">Print layout</md-menu-item>-->
+                                <!--<md-menu-item class="md-indent">
+                                <md-menu>
+                                    <md-button ng-click="$mdOpenMenu()">Mode</md-button>
+                                    <md-menu-content width="3">
+                                        <md-menu-item type="radio" ng-model="ctrl.settings.presentationMode" value="'presentation'">Presentation</md-menu-item>
+                                        <md-menu-item type="radio" ng-model="ctrl.settings.presentationMode" value="'edit'">Edit</md-menu-item>
+                                        <md-menu-item type="radio" ng-model="ctrl.settings.presentationMode" value="'modifiable'">Modifiable</md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>-->
+                                <md-menu-item type="checkbox" ng-model="settings.showCreateDate">Show create date</md-menu-item>
+                                <md-menu-item type="checkbox" ng-model="settings.showNo">Show No</md-menu-item>
+                                <md-menu-item type="checkbox" ng-model="settings.showMessage">Show message text</md-menu-item>
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item type="checkbox" ng-model="settings.filter.showSuccess">Success message</md-menu-item>
+                                <md-menu-item type="checkbox" ng-model="settings.filter.showFail">Fail message</md-menu-item>
+                                <md-menu-item type="checkbox" ng-model="settings.filter.showPending">Pending message</md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </md-menu-bar>
+                    <div flex></div>
+                    <!--<md-button aria-label="label" class="md-icon-button">
+                    <ng-md-icon icon="content_cut" size="24"></ng-md-icon>
+                </md-button>
+                <md-button aria-label="label" class="md-icon-button">
+                    <ng-md-icon icon="mode_edit" size="24"></ng-md-icon>
+                </md-button>
+                <md-button aria-label="label" class="md-icon-button">
+                    <ng-md-icon icon="content_paste" size="24"></ng-md-icon>
+                </md-button>-->
+                </div>
+            </md-subheader>
+            <div style="width:100%">
+                <div layout="row" class="md-warn" layout-sm="column" layout-align="space-around" ng-if="statusload">
+                    <md-progress-linear style="opacity:.3;margin-top:-3px;" md-mode="indeterminate"></md-progress-linear>
+
+                </div>
+            </div>
+
+            <md-card-content layout="column">
+
+                <md-table-container ng-if="page.data">
+                    <table md-table ng-model="selected" md-progress="promise">
+                        <thead md-head md-order="page.order" md-on-reorder="getData">
+                            <tr md-row>
+                                <th ng-if="settings.showNo" md-column>No.</th>
+                                <th md-column md-order-by="receiver"><span>Receiver (Phone No.)</span></th>
+                                <!--<th md-column md-numeric md-order-by="phone"><span>Mobile No.</span></th>-->
+                                <th ng-if="settings.showMessage" md-column>Message Body</th>
+                                <th ng-if="settings.showCreateDate" md-column md-order-by="time">Create Date</th>
+                                <th md-column>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="message" md-select-id="id" md-auto-select ng-repeat="message in page.data">
+
+                                <!--<td md-cell>{{csvmessage.name}}</td>-->
+                             
+                                <td ng-if="settings.showNo" md-cell>{{message.no}}</td>
+                                <td md-cell>{{message.receiver}}</td>
+                                <td ng-if="settings.showMessage" md-cell>{{message.body}}</td>
+                                <td ng-if="settings.showCreateDate" md-cell>{{message.time}}</td>
+                                <td md-cell>
+                                    <ng-md-icon ng-if="message.status==0" icon="info_outline" size="17" style="fill:orange;"></ng-md-icon>
+                                    <ng-md-icon ng-if="message.status==2" icon="check" size="17" style="fill:green;"></ng-md-icon>
+                                    <ng-md-icon ng-if="message.status<0" icon="do_not_disturb_alt" size="17" style="fill:red;"></ng-md-icon>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+
+                <md-table-pagination ng-if="page.data" md-limit="page.limit" md-limit-options="[5, 10, 20, 100]" md-page="page.pageno" md-total="{{page.total}}" md-on-paginate="getData" md-page-select></md-table-pagination>
+            </md-card-content>
+</md-card>
+    <!--<md-button ng-if="csvmessages"  class="md-raised md-primary">Send to Devices</md-button>-->
+
+</div>
+
+<a ng-href="#/home">
+    <md-button style="position:fixed;bottom:20px;right:20px;background-color:#EC407A;color:#fff;" class="md-fab" aria-label="Eat cake">
+        <ng-md-icon icon="arrow_back" size="24"></ng-md-icon>
+    </md-button>
+</a>
