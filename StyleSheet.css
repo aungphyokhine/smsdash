@@ -20,7 +20,7 @@
 
 /* Pretty printing styles. Used with prettify.js. */
 
-
+body{font-size:0.9em;}
 /* SPAN elements with the classes below are added by prettyprint. */
 .pln { color: #000 }  /* plain text */
 
