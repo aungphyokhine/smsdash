@@ -11,7 +11,7 @@ config(['$locationProvider', '$routeProvider', function ($locationProvider, $rou
         controller: 'DashboardCtrl'
          })
         .when('/settings', {
-            templateUrl: 'settings/settings.html?b=2',
+            templateUrl: 'settings/settings.html?c=5',
             controller: 'SettingsCtrl'
         })
          .when('/message', {
