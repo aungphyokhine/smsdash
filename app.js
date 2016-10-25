@@ -15,7 +15,7 @@ config(['$locationProvider', '$routeProvider', function ($locationProvider, $rou
             controller: 'SettingsCtrl'
         })
          .when('/message', {
-             templateUrl: 'message/message.html?b=4',
+             templateUrl: 'message/message.html?b=6',
              controller: 'MessageCtrl'
          })
           .when('/register', {

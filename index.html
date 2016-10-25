@@ -8,7 +8,7 @@
     <link href="bower_components/slick-carousel/slick/slick.css" rel="stylesheet" />
     <link href="StyleSheet.css" rel="stylesheet" />
     <link href="node_modules/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" />
-   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 </head>
 <body ng-app="smsDash" ng-cloak ng-controller="AppCtrl">
 
@@ -23,28 +23,31 @@
     <div layout="row" layout-sm="column" layout-align="center center" ng-if="load" class="md-warm" style="height:100%;">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-   
+
     <md-toolbar ng-if="user && !load" style="background-color:#fff;position:fixed;top:2px;z-index:10" class="md-primary md-hue-1">
         <div class="md-toolbar-tools" ng-if="loggedin">
-            <div  hide-sm hide-xs style="width:250px;">
-                
-               
-               
+            <div hide-sm hide-xs style="width:250px;">
+
+
+
             </div>
             <img hide-sm hide-xs ng-src="{{profile.photourl}}" style="height:45px;width:45px;border-radius:50%;border:none;margin-right:5px;" />
-            <h5  >
+            <!--<span>
                 <span>{{profile.name}} </span>
-            </h5>
+            </span>-->
+            <md-button >
+                {{profile.name}}
+            </md-button>
             <md-menu>
                 <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
                     <ng-md-icon icon="keyboard_arrow_down" size="24"></ng-md-icon>
                 </md-button>
                 <md-menu-content width="4">
-                   
+
                     <md-menu-item>
                         <md-button ng-click="goAddDevice()">
                             <ng-md-icon icon="vibration" style="fill-opacity:.6;" size="24"></ng-md-icon>
-                           Add Devices
+                            Add Devices
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
@@ -54,7 +57,7 @@
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button  ng-click="gosettings()">
+                        <md-button ng-click="gosettings()">
                             <ng-md-icon icon="device_hub" style="fill-opacity:.6;" size="24"></ng-md-icon>
                             API Settings
                         </md-button>
@@ -62,8 +65,8 @@
                     <md-menu-divider></md-menu-divider>
                     <md-menu-item>
                         <md-button ng-click="logout()">
-                           
-                             Logout
+
+                            Logout
                         </md-button>
                     </md-menu-item>
                 </md-menu-content>
@@ -73,34 +76,35 @@
                 <ng-md-icon icon="question_answer" size="24"></ng-md-icon>
             </md-button>
             <h5>add messages</h5>-->
-            <div><md-menu>
-    <md-button  ng-click="$mdOpenMenu($event)">
-        {{selectedLang.desc}}
-    </md-button>
-    <md-menu-content width="4" >
-        <md-menu-item >
-            <md-button ng-click="setLang('en')">
-               
-               English
-            </md-button>
-        </md-menu-item>
-        <md-menu-item>
-            <md-button ng-click="setLang('mmzg')">
-              
-                ေဇာ္ဂ်ီျမန္မာ
-            </md-button>
-        </md-menu-item>
-        <md-menu-item>
-            <md-button ng-click="setLang('mm')">
-               
-                ယူနီကုဒ်မြန်မာ
-            </md-button>
-        </md-menu-item>
-    </md-menu-content>
-</md-menu>
-                
+            <div>
+                <md-menu>
+                    <md-button ng-click="$mdOpenMenu($event)">
+                        {{selectedLang.desc}}
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <md-button ng-click="setLang('en')">
+
+                                English
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="setLang('mmzg')">
+
+                                ေဇာ္ဂ်ီျမန္မာ
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="setLang('mm')">
+
+                                ယူနီကုဒ်မြန်မာ
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
             </div>
-            <md-button  aria-label="photo" class="md-icon-button" >
+            <md-button aria-label="photo" class="md-icon-button">
                 <ng-md-icon icon="help_outline" size="24"></ng-md-icon>
             </md-button>
         </div>
@@ -110,9 +114,9 @@
 
     <div ng-cloak layout="column" layout-align="start stretch" layout-fill style="margin-top:60px;">
 
-        <div layout-align="center center" layout="row"  ng-cloak id="popupContainer" ng-if="!user && !load">
-           
-             <div class="md-padding" flex-gt-sm="30" flex="50" style="margin-top:100px;" layout-align="center center"  layout="column">
+        <div layout-align="center center" layout="row" ng-cloak id="popupContainer" ng-if="!user && !load">
+
+            <div class="md-padding" flex-gt-sm="30" flex="50" style="margin-top:100px;" layout-align="center center" layout="column">
                 <h1 style="text-align:center;margin-top:-50px;">
                     <svg (click)="manualinputsetup()" version="1.0" xmlns="http://www.w3.org/2000/svg"
                          width="130" height="150" viewBox="0 0 210.000000 246.000000"
@@ -198,47 +202,47 @@ c939 188 918 184 891 160z" />
                         </g>
                     </svg>
                 </h1>
-                 <p style="text-align:center;">
-                     This system is intended for business sms messaging, can send sms from File or API easily.
-                    
-                 </p>
+                <p style="text-align:center;">
+                    This system is intended for business sms messaging, can send sms from File or API easily.
+
+                </p>
                 <!--<h3 flex ng-click="logout()" style="text-align:center;margin-bottom:50px;">Portable SMS</h3>-->
-                 <md-button class="md-raised" style="background-color:#387ef5;color:#fff;" ng-click="fblogin()">Login with Facebook</md-button>
+                <md-button class="md-raised" style="background-color:#387ef5;color:#fff;padding:0px 20px;border-radius:20px;" ng-click="fblogin()">Login with Facebook</md-button>
                 <!--<md-button style="background-image:url(img/fb.png);height:46px;width:202px;" class="md-raised md-primary" ng-click="fblogin()" ></md-button>-->
             </div>
         </div>
         <div ng-if="user && !load" hide-sm hide-xs style="position:fixed;top:2px;bottom:0px;background-color:#2E323E;bottom:0;width:250px;z-index:1000;" layout-fill>
             <md-toolbar class="md-hue-2" style="background-color:#383C47;">
                 <div class="md-toolbar-tools" ng-if="loggedin">
-            
-                    <h5 >
-                        <!--<ng-md-icon ng-click="resetall()" icon="gesture" size="24"></ng-md-icon>-->
-                        <span ng-click="resetall()">SMS Portal</span>
 
+                    <h5>
+                        <!--<ng-md-icon ng-click="resetall()" icon="gesture" size="24"></ng-md-icon>-->
+                        <!--<span ng-click="resetall()">SMS Portal</span>-->
+                        <span>SMS Portal</span>
                     </h5>
                 </div>
             </md-toolbar>
-           
-</div>
+
+        </div>
         <div layout="row" ng-if="user && !load" flex="100" layout-align="start stretch">
 
-           
-
-                    <div hide-sm hide-xs style="background-color:transparent;width:250px;" layout-fill>
-                        ..
-                    </div>
 
 
-                    <div flex layout="column" layout-fill layout-align="start stretch">
-                     
-                        <div ng-view flex="100"></div>
-                    </div>
-
+            <div hide-sm hide-xs style="background-color:transparent;width:250px;" layout-fill>
+                ..
             </div>
+
+
+            <div flex layout="column" layout-fill layout-align="start stretch">
+
+                <div ng-view flex="100"></div>
+            </div>
+
+        </div>
     </div>
 
 
-    
+
     <script src="fbsdk.js"></script>
     <script src="parse.min.js"></script>
     <script src="node_modules/qrcode-generator/js/qrcode.js"></script>
@@ -275,7 +279,7 @@ c939 188 918 184 891 160z" />
     <script src="node_modules/angular-sessionstorage/angular-sessionstorage.js"></script>
 
     <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
-  
+
     <!-- Your application bootstrap  -->
     <script src="app.js"></script>
     <script src="dashboard/dashboard.js"></script>
