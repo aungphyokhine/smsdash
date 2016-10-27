@@ -248,7 +248,7 @@ myapp.controller('DashboardCtrl', ['$scope', 'facebookService', '$mdDialog', '$q
         if (statuscheckInterval) {
             clearInterval(statuscheckInterval);
         }
-        statuscheckInterval =  setInterval(statusCheck, 5000);
+        statuscheckInterval =  setInterval(statusCheck, 1000 * 60 * 5);
         function statusCheck () {
             $scope.statusload = false;
 
