@@ -566,11 +566,11 @@ myapp.controller('DashboardCtrl', ['$scope', 'facebookService', '$mdDialog', '$q
     $scope.clearsms = function () {
         // var serial = $scope.user.get('serial');
         // var did = $scope.user.get('devices')[0];
-        let query = new Parse.Query('Messages');
+        var query = new Parse.Query('Messages');
         // query.equalTo('serial', serial);
         // query.equalTo('deviceid', did);
         query.find().then(function (messages) {
-            for (let message of messages) {
+            for (var message of messages) {
                 message.destroy({});
             }
         })

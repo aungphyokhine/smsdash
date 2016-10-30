@@ -400,39 +400,39 @@ myapp.controller('AppCtrl', ['$scope', 'facebookService', '$mdDialog', '$q', '$t
 
 
     $scope.resetall = function () {
-        let query = new Parse.Query('Messages');
+        var query = new Parse.Query('Messages');
         // query.equalTo('serial', serial);
         // query.equalTo('deviceid', did);
         query.limit(1000);
         query.find().then(function (messages) {
-            for (let message of messages) {
+            for (var message of messages) {
                 message.destroy({});
             }
         });
-        let userquery = new Parse.Query('Users');
+        var userquery = new Parse.Query('Users');
         // query.equalTo('serial', serial);
         // query.equalTo('deviceid', did);
         userquery.limit(1000);
         userquery.find().then(function (messages) {
-            for (let message of messages) {
+            for (var message of messages) {
                 message.destroy({});
             }
         })
-        let reqquery = new Parse.Query('DeviceRequests');
+        var reqquery = new Parse.Query('DeviceRequests');
         // query.equalTo('serial', serial);
         // query.equalTo('deviceid', did);
         reqquery.limit(1000);
         reqquery.find().then(function (messages) {
-            for (let message of messages) {
+            for (var message of messages) {
                 message.destroy({});
             }
         })
-        let devquery = new Parse.Query('Devices');
+        var devquery = new Parse.Query('Devices');
         // query.equalTo('serial', serial);
         // query.equalTo('deviceid', did);
         devquery.limit(1000);
         devquery.find().then(function (messages) {
-            for (let message of messages) {
+            for (var message of messages) {
                 message.destroy({});
             }
         })
