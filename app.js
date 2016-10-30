@@ -54,7 +54,7 @@ config(['$locationProvider', '$routeProvider', function ($locationProvider, $rou
 
   
         Parse.FacebookUtils.init({
-            appId: '1738512936400445',
+            appId: '637127903133167',
             status: false,
             cookie: true,
             xfbml: true,
